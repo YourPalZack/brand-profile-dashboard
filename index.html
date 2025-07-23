@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groundfloor Directory Listing Roadmap</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>Groundfloor Directory Listing Roadmap</h1>
+            <p class="app-subtitle">Track your progress through 27 strategic directory submissions</p>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section class="dashboard">
+            <div class="dashboard-grid">
+                <div class="progress-card">
+                    <h3>Overall Progress</h3>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="overallProgress"></div>
+                        </div>
+                        <span class="progress-text" id="overallProgressText">0% Complete</span>
+                    </div>
+                </div>
+                
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-number" id="totalDirectories">27</div>
+                        <div class="summary-label">Total Directories</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number" id="freeDirectories">15</div>
+                        <div class="summary-label">Free Directories</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number" id="paidDirectories">12</div>
+                        <div class="summary-label">Paid Directories</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number" id="completedTasks">0</div>
+                        <div class="summary-label">Completed</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-number" id="remainingTasks">27</div>
+                        <div class="summary-label">Remaining</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Controls Section -->
+        <section class="controls">
+            <div class="control-row">
+                <div class="search-container">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search directories...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="btn btn--secondary active" data-filter="all">All</button>
+                    <button class="btn btn--secondary" data-filter="free">Free Only</button>
+                    <button class="btn btn--secondary" data-filter="paid">Paid Only</button>
+                    <button class="btn btn--secondary" data-filter="completed">Completed</button>
+                    <button class="btn btn--secondary" data-filter="pending">Pending</button>
+                </div>
+                <button class="btn btn--primary" id="exportBtn">Export to Google Sheets</button>
+            </div>
+        </section>
+
+        <!-- Directory Sections -->
+        <main class="directory-sections">
+            <!-- Free Directories Section -->
+            <section class="directory-section">
+                <div class="section-header">
+                    <h2>Free Directories (Priority 1)</h2>
+                    <div class="section-progress">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="freeProgress"></div>
+                            </div>
+                            <span class="progress-text" id="freeProgressText">0/15 Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="directory-grid" id="freeDirectoriesGrid">
+                    <!-- Free directories will be populated here -->
+                </div>
+            </section>
+
+            <!-- Paid Directories Section -->
+            <section class="directory-section">
+                <div class="section-header">
+                    <h2>Paid Directories (Priority 2)</h2>
+                    <div class="section-progress">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="paidProgress"></div>
+                            </div>
+                            <span class="progress-text" id="paidProgressText">0/12 Complete</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="directory-grid" id="paidDirectoriesGrid">
+                    <!-- Paid directories will be populated here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="quick-action-buttons">
+                <button class="btn btn--outline" id="markAllFreeBtn">Mark All Free Complete</button>
+                <button class="btn btn--outline" id="markAllPaidBtn">Mark All Paid Complete</button>
+                <button class="btn btn--outline" id="resetProgressBtn">Reset All Progress</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Directory Card Template -->
+    <template id="directoryCardTemplate">
+        <div class="directory-card card" data-id="" data-type="" data-status="pending">
+            <div class="card__body">
+                <div class="directory-header">
+                    <div class="directory-title">
+                        <h4 class="directory-name"></h4>
+                        <span class="directory-cost"></span>
+                    </div>
+                    <div class="directory-status">
+                        <input type="checkbox" class="completion-checkbox">
+                        <span class="status status--info">Pending</span>
+                    </div>
+                </div>
+                
+                <div class="directory-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Niche:</span>
+                        <span class="directory-niche"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">SEO Strength:</span>
+                        <span class="seo-badge"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Priority:</span>
+                        <span class="priority-badge"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Est. Time:</span>
+                        <span class="estimated-time"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">URL:</span>
+                        <a href="" class="directory-url" target="_blank">Sign up here</a>
+                    </div>
+                </div>
+
+                <div class="directory-notes">
+                    <label class="form-label">Notes:</label>
+                    <textarea class="form-control notes-textarea" rows="2" placeholder="Add notes about this directory..."></textarea>
+                </div>
+
+                <div class="directory-footer">
+                    <div class="completion-date">
+                        <label class="form-label">Date Completed:</label>
+                        <input type="date" class="form-control date-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
